@@ -8,6 +8,7 @@ import Array "mo:base/Array";
 import Trie "mo:base/Trie";
 import Iter "mo:base/Iter";
 import Debug "mo:base/Debug";
+import Nat "mo:base/Nat";
 
 // 
 
@@ -38,9 +39,13 @@ actor
   var writers: HashMap.HashMap<Text, Writer> = HashMap.HashMap<Text, Writer>(10, Text.equal, Text.hash);
   var readers: HashMap.HashMap<Text, Reader> = HashMap.HashMap<Text, Reader>(10, Text.equal, Text.hash);
   var comments: HashMap.HashMap<Text, Text> = HashMap.HashMap<Text, Text>(10, Text.equal, Text.hash);
+  var writerBuffer: Buffer.Buffer<Text> = Buffer.Buffer<Text>(10);
+  var readerBuffer: Buffer.Buffer<Text> = Buffer.Buffer<Text>(10);
+  var totalReaderByBook: HashMap.HashMap<Text, Nat> = HashMap.HashMap<Text, Nat>(10, Text.equal, Text.hash);
+
   // var comments:HashMap.HashMap<Text,Buffer.Buffer<Text>> = HashMap.HashMap<Text,Buffer.Buffer<Text>>(10,Text.equal,Text.hash);
   // var comments: HashMap.HashMap<Text, List.List<Text>> = HashMap.HashMap<Text, List.List<Text>>(10, Text.equal, Text.hash);
-  var commentBuffer: Buffer.Buffer<Text> = Buffer.Buffer<Text>(10);
+  // var commentBuffer: Buffer.Buffer<Text> = Buffer.Buffer<Text>(10);
   // var commentList: List.List<Text> = List.List<Text>();
   public func addWriter(writer:Writer) : async () {
     let uploadBookVisible:Book = {
@@ -55,6 +60,7 @@ actor
     };
     if (writer.choiceVisibility) {
       writers.put(writer.name, writer);
+      writerBuffer.add(writer.name);
       books.put(writer.bookName, uploadBookVisible);
 
       if(comments.get(writer.bookName) == null){
@@ -71,6 +77,7 @@ actor
     }
     else {
         books.put(writer.bookName, uploadBookInvisible);
+        writerBuffer.add("Anonymous");
         if(comments.get(writer.bookName) == null){
         comments.put(writer.bookName,writer.comment);
         }
@@ -88,13 +95,29 @@ actor
   public func addReader(reader:Reader) : async () {
     if (reader.choiceVisibility) {
       readers.put(reader.choiceBook, reader);
+      let temp: ?Nat = totalReaderByBook.get(reader.choiceBook);
+      let totalReader: Nat = switch (temp) {
+        case (null) { 0 };
+        case (?t) { t };
+      };
+      totalReaderByBook.put(reader.choiceBook, totalReader + 1);
     }
+
   };
   //
-  public func getCommentsByBookName(bookName: Text):async ?Text{
+  public query func getCommentsByBookName(bookName: Text):async ?Text{
     let comment: ?Text = comments.get(bookName);
     return comment;
 
+  };
+   
+  public query func getWriters() : async [Text] {
+    return Buffer.toArray(writerBuffer);
+  };
+
+  public query func getTotalReaderByBook(bookName:Text) : async ?Nat {
+    let totalReader: ?Nat = totalReaderByBook.get(bookName);
+    return totalReader;
   };
 
   public func getBookByName(bookName: Text) : async ?Book {
