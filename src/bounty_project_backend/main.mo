@@ -27,6 +27,7 @@ actor
     choiceVisibility:Bool;
     choiceBook:Text;
     choiceWriter:?Text;
+    feedback:?Text;
   };
   
   type Book = {
@@ -42,6 +43,7 @@ actor
   var writerBuffer: Buffer.Buffer<Text> = Buffer.Buffer<Text>(10);
   var readerBuffer: Buffer.Buffer<Text> = Buffer.Buffer<Text>(10);
   var totalReaderByBook: HashMap.HashMap<Text, Nat> = HashMap.HashMap<Text, Nat>(10, Text.equal, Text.hash);
+  var feedbacks: HashMap.HashMap<Text, Text> = HashMap.HashMap<Text, Text>(10, Text.equal, Text.hash);
 
   // var comments:HashMap.HashMap<Text,Buffer.Buffer<Text>> = HashMap.HashMap<Text,Buffer.Buffer<Text>>(10,Text.equal,Text.hash);
   // var comments: HashMap.HashMap<Text, List.List<Text>> = HashMap.HashMap<Text, List.List<Text>>(10, Text.equal, Text.hash);
@@ -95,6 +97,22 @@ actor
   public func addReader(reader:Reader) : async () {
     if (reader.choiceVisibility) {
       readers.put(reader.choiceBook, reader);
+      switch (reader.feedback) {
+        case (null) { };
+        case (?t) {
+          if(feedbacks.get(reader.choiceBook) == null){
+            feedbacks.put(reader.choiceBook,t);
+          }
+          else{
+            let temp:?Text = feedbacks.get(reader.choiceBook);
+            let text : Text = switch (temp) {
+              case (null) { "default" }; 
+              case (?t) { t }; 
+            };
+            feedbacks.put(reader.choiceBook,text # ", " # t);
+          }
+        };
+      };
       let temp: ?Nat = totalReaderByBook.get(reader.choiceBook);
       let totalReader: Nat = switch (temp) {
         case (null) { 0 };
@@ -125,7 +143,6 @@ actor
     return book;
   };
 
-  // Deploy da Gorunmeyecek şekilde ayarla
   private  func getWriterByName(writerName: Text) : async ?Writer {
     let writer: ?Writer = writers.get(writerName);
     return writer;
@@ -146,7 +163,9 @@ actor
     return book;
   };
 
-  
-
+  public query func getFeedbackByBookName(bookName: Text) : async ?Text {
+    let feedback: ?Text = feedbacks.get(bookName);
+    return feedback;
+  };
   
 }
