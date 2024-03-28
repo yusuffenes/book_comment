@@ -3,28 +3,22 @@ import Nat16 "mo:base/Nat16";
 import Bool "mo:base/Bool";
 import HashMap "mo:base/HashMap";
 import Buffer "mo:base/Buffer";
-import List "mo:base/List";
-import Array "mo:base/Array";
-import Trie "mo:base/Trie";
-import Iter "mo:base/Iter";
-import Debug "mo:base/Debug";
 import Nat "mo:base/Nat";
 
-// 
-
+// Define an actor to represent a system managing writers, readers, and books.
 actor
 {
   type Writer = {
-    choiceVisibility:Bool;
-    id : Nat32;
+    choiceVisibility:Bool; // Whether the writer's identity is visible.
+    id : Nat32; 
     name : Text;
     age : ?Nat16;
     bookName:Text;
     comment:Text;
   };
-
+// Define a type for Reader with attributes to store their choices and feedback.
   type Reader = {
-    choiceVisibility:Bool;
+    choiceVisibility:Bool;  // Whether the reader's choices are visible.
     choiceBook:Text;
     choiceWriter:?Text;
     feedback:?Text;
@@ -35,22 +29,25 @@ actor
     writer:?Text;
     comment:Text;
   };
-  
+   // Initialize hashmaps to store books, writers, readers, comments, and feedbacks.
   var books: HashMap.HashMap<Text, Book> = HashMap.HashMap<Text, Book>(10, Text.equal, Text.hash);
   var writers: HashMap.HashMap<Text, Writer> = HashMap.HashMap<Text, Writer>(10, Text.equal, Text.hash);
   var readers: HashMap.HashMap<Text, Reader> = HashMap.HashMap<Text, Reader>(10, Text.equal, Text.hash);
   var comments: HashMap.HashMap<Text, Text> = HashMap.HashMap<Text, Text>(10, Text.equal, Text.hash);
   var writerBuffer: Buffer.Buffer<Text> = Buffer.Buffer<Text>(10);
-  var readerBuffer: Buffer.Buffer<Text> = Buffer.Buffer<Text>(10);
   var totalReaderByBook: HashMap.HashMap<Text, Nat> = HashMap.HashMap<Text, Nat>(10, Text.equal, Text.hash);
   var feedbacks: HashMap.HashMap<Text, Text> = HashMap.HashMap<Text, Text>(10, Text.equal, Text.hash);
 
+
+  // Function to add a writer and their book to the system.
   public func addWriter(writer:Writer) : async () {
+    // Define a visible book based on the writer's choice.
     let uploadBookVisible:Book = {
       name= writer.bookName;
       writer= ?writer.name;
       comment= writer.comment;
     };
+    // Define an invisible book without the writer's name.
     let uploadBookInvisible:Book = {
       name= writer.bookName;
       writer= null;
@@ -76,6 +73,7 @@ actor
     else {
         books.put(writer.bookName, uploadBookInvisible);
         writerBuffer.add("Anonymous");
+        // Update or add comments for the book anonymously.
         if(comments.get(writer.bookName) == null){
         comments.put(writer.bookName,writer.comment);
         }
@@ -89,8 +87,9 @@ actor
         }
     };
   };
-
+  // Function to add a reader and their feedback to the system.
   public func addReader(reader:Reader) : async () {
+    // Add the reader's choice and feedback if visibility is chosen.
     if (reader.choiceVisibility) {
       readers.put(reader.choiceBook, reader);
       switch (reader.feedback) {
@@ -117,6 +116,7 @@ actor
       totalReaderByBook.put(reader.choiceBook, totalReader + 1);
     }
     else {
+      // Add anonymous feedback if provided.
        switch (reader.feedback) {
         case (null) { };
         case (?t) {
