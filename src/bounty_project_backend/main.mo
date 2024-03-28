@@ -120,7 +120,24 @@ actor
       };
       totalReaderByBook.put(reader.choiceBook, totalReader + 1);
     }
-
+    else {
+       switch (reader.feedback) {
+        case (null) { };
+        case (?t) {
+          if(feedbacks.get(reader.choiceBook) == null){
+            feedbacks.put(reader.choiceBook,t);
+          }
+          else{
+            let temp:?Text = feedbacks.get(reader.choiceBook);
+            let text : Text = switch (temp) {
+              case (null) { "default" }; 
+              case (?t) { t }; 
+            };
+            feedbacks.put(reader.choiceBook,text # ", " # t);
+          }
+    };  
+    };
+    };
   };
   //
   public query func getCommentsByBookName(bookName: Text):async ?Text{
