@@ -5,6 +5,7 @@
 <p>This project is an implementation of a system to manage writers, readers, and books using the Motoko programming language, suitable for deployment on the Internet Computer. The system is designed to handle various entities and their interactions within a literary context.</p>
 
 <h4> <a href=https://m7sm4-2iaaa-aaaab-qabra-cai.ic0.app/?tag=2043152986>View Demo</a> <span> · </span> <a href="https://github.com/yusuffenes/book_comment/blob/master/README.md"> Documentation </a> <span> · </span> <a href="https://github.com/yusuffenes/book_comment/issues"> Report Bug </a> <span> · </span> <a href="https://github.com/yusuffenes/book_comment/issues"> Request Feature </a> </h4>
+
 ## Features
 
 - **Writer Management**: Writers can add their books to the system along with comments. They have the option to make their identity visible or remain anonymous.
