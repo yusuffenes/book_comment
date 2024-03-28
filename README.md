@@ -1,5 +1,17 @@
 # bounty_project
+<div align='center'>
 
+<img src=https://r.resimlink.com/al3wBoLj_.jpg alt="logo" width= height= />
+
+<h1>Web3</h1>
+<p>This project is an implementation of a system to manage writers, readers, and books using the Motoko programming language, suitable for deployment on the Internet Computer. The system is designed to handle various entities and their interactions within a literary context.</p>
+
+<h4> <a href=https://m7sm4-2iaaa-aaaab-qabra-cai.ic0.app/?tag=2043152986>View Demo</a> <span> · </span> <a href="https://github.com/yusuffenes/book_comment/blob/master/README.md"> Documentation </a> <span> · </span> <a href="https://github.com/yusuffenes/book_comment/issues"> Report Bug </a> <span> · </span> <a href="https://github.com/yusuffenes/book_comment/issues"> Request Feature </a> </h4>
+
+
+</div>
+
+## :star2: About the Project
 Welcome to your new bounty_project project and to the internet computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
 
 To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
