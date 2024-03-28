@@ -1,19 +1,35 @@
-# bounty_project
-<div align='center'>
+![_f37feeab-96f0-4d3f-933c-1e7008147fbf](https://github.com/yusuffenes/book_comment/assets/66623374/38c7179d-2b06-4b84-9b0b-9ca36783b3c4)
 
-<img src=https://r.resimlink.com/al3wBoLj_.jpg alt="logo" width= height= />
 
-<h1>Web3</h1>
+<h1>Book And Comment</h1>
 <p>This project is an implementation of a system to manage writers, readers, and books using the Motoko programming language, suitable for deployment on the Internet Computer. The system is designed to handle various entities and their interactions within a literary context.</p>
 
 <h4> <a href=https://m7sm4-2iaaa-aaaab-qabra-cai.ic0.app/?tag=2043152986>View Demo</a> <span> · </span> <a href="https://github.com/yusuffenes/book_comment/blob/master/README.md"> Documentation </a> <span> · </span> <a href="https://github.com/yusuffenes/book_comment/issues"> Report Bug </a> <span> · </span> <a href="https://github.com/yusuffenes/book_comment/issues"> Request Feature </a> </h4>
 
 
-</div>
+# Project Overview
 
-## :star2: About the Project
-Welcome to your new bounty_project project and to the internet computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
+This project is an implementation of a system to manage writers, readers, and books using the Motoko programming language, suitable for deployment on the Internet Computer. The system is designed to handle various entities and their interactions within a literary context.
 
+## Features
+
+- **Writer Management**: Writers can add their books to the system along with comments. They have the option to make their identity visible or remain anonymous.
+- **Reader Engagement**: Readers can select books, provide feedback, and choose whether their preferences and feedback are visible.
+- **Book Catalog**: A collection of books is maintained, each associated with a writer (if not anonymous) and comments from both writers and readers.
+- **Feedback System**: Readers can leave feedback on books, contributing to a community-driven review system.
+
+## Data Structures
+
+- `Writer`, `Reader`, and `Book` types are defined to encapsulate the attributes of each entity.
+- `HashMaps` are used to store and manage books, writers, readers, comments, and feedback efficiently.
+- `Buffers` are utilized to maintain a dynamic list of writers.
+
+## Functions
+
+- `addWriter`: Adds a writer and their book to the system, updating the book catalog and comments accordingly.
+- `addReader`: Records a reader's book choice and feedback, influencing the visibility of their interactions based on their preference.
+
+This system exemplifies the use of the actor model in Motoko to manage stateful interactions in a decentralized environment. It showcases the potential for building community-driven platforms on the Internet Computer.
 To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
 
 To learn more before you start working with bounty_project, see the following documentation available online:
