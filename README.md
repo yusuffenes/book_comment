@@ -23,6 +23,7 @@
 - `addWriter`: Adds a writer and their book to the system, updating the book catalog and comments accordingly.
 - `addReader`: Records a reader's book choice and feedback, influencing the visibility of their interactions based on their preference.
 
+## Installation
 This system exemplifies the use of the actor model in Motoko to manage stateful interactions in a decentralized environment. It showcases the potential for building community-driven platforms on the Internet Computer.
 To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
 
