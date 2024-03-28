@@ -45,10 +45,6 @@ actor
   var totalReaderByBook: HashMap.HashMap<Text, Nat> = HashMap.HashMap<Text, Nat>(10, Text.equal, Text.hash);
   var feedbacks: HashMap.HashMap<Text, Text> = HashMap.HashMap<Text, Text>(10, Text.equal, Text.hash);
 
-  // var comments:HashMap.HashMap<Text,Buffer.Buffer<Text>> = HashMap.HashMap<Text,Buffer.Buffer<Text>>(10,Text.equal,Text.hash);
-  // var comments: HashMap.HashMap<Text, List.List<Text>> = HashMap.HashMap<Text, List.List<Text>>(10, Text.equal, Text.hash);
-  // var commentBuffer: Buffer.Buffer<Text> = Buffer.Buffer<Text>(10);
-  // var commentList: List.List<Text> = List.List<Text>();
   public func addWriter(writer:Writer) : async () {
     let uploadBookVisible:Book = {
       name= writer.bookName;
