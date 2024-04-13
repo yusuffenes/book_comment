@@ -1,5 +1,3 @@
-![_f37feeab-96f0-4d3f-933c-1e7008147fbf](https://github.com/yusuffenes/book_comment/assets/66623374/38c7179d-2b06-4b84-9b0b-9ca36783b3c4)
-
 
 <h1>Book And Comment</h1>
 <p>This project is an implementation of a system to manage writers, readers, and books using the Motoko programming language, suitable for deployment on the Internet Computer. The system is designed to handle various entities and their interactions within a literary context.</p>
